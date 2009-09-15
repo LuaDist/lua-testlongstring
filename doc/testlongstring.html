@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>lua-TestLongString</title>
+    <link rel="stylesheet" href="http://www.keplerproject.org/doc.css" type="text/css"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+
+<body>
+
+<div id="container">
+
+<div id="product">
+  <div id="product_logo">
+    <a href="http://www.lua.org">
+      <img alt="Lua" src="http://www.andreas-rozek.de/Lua/Lua-Logo_128x128.png"/>
+    </a>
+  </div>
+  <div id="product_name"><big><strong>lua-TestLongString</strong></big></div>
+  <div id="product_description">an extension for testing long string</div>
+</div> <!-- id="product" -->
+
+<div id="main">
+
+<div id="navigation">
+<h1>TestLongString</h1>
+  <ul>
+    <li><a href="index.html">Home</a>
+      <ul>
+        <li><a href="index.html#overview">Overview</a></li>
+        <li><a href="index.html#status">Status</a></li>
+        <li><a href="index.html#download">Download</a></li>
+        <li><a href="index.html#installation">Installation</a></li>
+        <li><a href="index.html#license">License</a></li>
+      </ul>
+    </li>
+    <li><strong>The module <code>Test.LongString</code></strong>
+      <ul>
+        <li><a href="testlongstring.html#reference">Reference</a></li>
+        <li><a href="testlongstring.html#examples">Examples</a></li>
+      </ul>
+    </li>
+    <li><a href="http://luaforge.net/projects/testlongstring/">Project</a>
+      <ul>
+        <li><a href="http://github.com/fperrad/lua-TestLongString/">Git</a></li>
+        <li><script type="text/javascript" src=""></script></li>
+      </ul>
+    </li>
+  </ul>
+</div> <!-- id="navigation" -->
+
+<div id="content">
+
+<h2><a name="reference"></a>References</h2>
+
+<h4><code>is_string (got, expected [, name])</code></h4>
+
+<h4><code>like_string (got, pattern [, name])</code></h4>
+
+<h4><code>unlike_string (got, pattern [, name])</code></h4>
+
+<h4><code>contains_string (str, substring [, name])</code></h4>
+
+<h4><code>lacks_string (str, substring [, name])</code></h4>
+
+<h2><a name="examples"></a>Examples</h2>
+
+<pre class="example">
+require 'Test.More'
+require 'Test.LongString'
+
+plan(5)
+
+is_string('str', 'str', "is_string")
+like_string('str', '^%w+', "like_string")
+unlike_string('str', '^%d+', "unlike_string")
+contains_string('a string', 'str', "contains_string")
+lacks_string('a string', 'STR', "contains_string")
+</pre>
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+<div id="about">
+</div> <!-- id="about" -->
+
+</div> <!-- id="container" -->
+
+</body>
+</html>
