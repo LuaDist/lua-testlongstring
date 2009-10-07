@@ -56,13 +56,41 @@
 
 <h4><code>is_string( got, expected [, name] )</code></h4>
 
+<p><code>is_string()</code> is equivalent to <code>Test.More.is()</code>,
+but with more helpful diagnostics in case of failure.</p>
+
+<ul>
+  <li>It doesn't print the entire strings in the failure message.</li>
+  <li>It reports the lengths of the strings that have been compared.</li>
+  <li>It reports the length of the common prefix of the strings.</li>
+  <li>In the diagnostics, non-ASCII characters are escaped as <code>\ddd</code>.</li>
+</ul>
+
+<h4><code>is_string_nows( got, expected [, name] )</code></h4>
+
+<p>Like <code>is_string()</code>, but removes whitepace (in the <code>%s</code>
+sense) from the arguments before comparing them.</p>
+
 <h4><code>like_string( got, pattern [, name] )</code></h4>
 
 <h4><code>unlike_string( got, pattern [, name] )</code></h4>
 
-<h4><code>contains_string( str, substring [, name] )</code></h4>
+<p><code>like_string()</code> and <code>unlike_string()</code> are
+replacements for <code>Test.More.like()</code> and <code>unlike()</code>
+that only print the beginning of the received string in the output. Unfortunately,
+they can't print out the position where the regex failed to match.</p>
 
-<h4><code>lacks_string( str, substring [, name] )</code></h4>
+<h4><code>contains_string( string, substring [, name] )</code></h4>
+
+<p><code>contains_string()</code> searches for <em>substring</em>
+in <em>string</em>. It's the same as <code>like_string()</code>, except that
+it's not a regular expression search.</p>
+
+<h4><code>lacks_string( string, substring [, name] )</code></h4>
+
+<p><code>lacks_string()</code> makes sure that <em>substring</em>
+does NOT exist in <em>string</em>. It's the same as <code>like_string()</code>,
+except that it's not a regular expression search.</p>
 
 <h2><a name="examples"></a>Examples</h2>
 
@@ -76,7 +104,7 @@ is_string('str', 'str', "is_string")
 like_string('str', '^%w+', "like_string")
 unlike_string('str', '^%d+', "unlike_string")
 contains_string('a string', 'str', "contains_string")
-lacks_string('a string', 'STR', "contains_string")
+lacks_string('a string', 'STR', "lacks_string")
 </pre>
 
 </div> <!-- id="content" -->
