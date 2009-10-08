@@ -62,16 +62,16 @@ local function common_prefix_length (str1, str2)
     end
 end
 
-function is_string(got, expected, desc)
+function is_string(got, expected, name)
     if type(got) ~= 'string' then
-        tb:ok(false, desc)
+        tb:ok(false, name)
         tb:diag("got value isn't a string : " .. tostring(got))
     elseif type(expected) ~= 'string' then
-        tb:ok(false, desc)
+        tb:ok(false, name)
         tb:diag("expected value isn't a string : " .. tostring(expected))
     else
         local pass = got == expected
-        tb:ok(pass, desc)
+        tb:ok(pass, name)
         if not pass then
             local common_prefix = common_prefix_length(got, expected)
             tb:diag("         got: " .. display(got, common_prefix)
@@ -83,18 +83,18 @@ function is_string(got, expected, desc)
     end
 end
 
-function is_string_nows(got, expected, desc)
+function is_string_nows(got, expected, name)
     if type(got) ~= 'string' then
-        tb:ok(false, desc)
+        tb:ok(false, name)
         tb:diag("got value isn't a string : " .. tostring(got))
     elseif type(expected) ~= 'string' then
-        tb:ok(false, desc)
+        tb:ok(false, name)
         tb:diag("expected value isn't a string : " .. tostring(expected))
     else
         local got_nows = got:gsub( "%s+", '' )
         local expected_nows = expected:gsub( "%s+", '' )
         local pass = got_nows == expected_nows
-        tb:ok(pass, desc)
+        tb:ok(pass, name)
         if not pass then
             local common_prefix = common_prefix_length(got_nows, expected_nows)
             tb:diag("after whitespace removal:"
@@ -107,16 +107,16 @@ function is_string_nows(got, expected, desc)
     end
 end
 
-function like_string(got, pattern, desc)
+function like_string(got, pattern, name)
     if type(got) ~= 'string' then
-        tb:ok(false, desc)
+        tb:ok(false, name)
         tb:diag("got value isn't a string : " .. tostring(got))
     elseif type(pattern) ~= 'string' then
-        tb:ok(false, desc)
+        tb:ok(false, name)
         tb:diag("pattern isn't a string : " .. tostring(pattern))
     else
         local pass = got:match(pattern)
-        tb:ok(pass, desc)
+        tb:ok(pass, name)
         if not pass then
             tb:diag("         got: " .. display(got)
                .. "\n      length: " .. got:len()
@@ -125,16 +125,16 @@ function like_string(got, pattern, desc)
     end
 end
 
-function unlike_string(got, pattern, desc)
+function unlike_string(got, pattern, name)
     if type(got) ~= 'string' then
-        tb:ok(false, desc)
+        tb:ok(false, name)
         tb:diag("got value isn't a string : " .. tostring(got))
     elseif type(pattern) ~= 'string' then
-        tb:ok(false, desc)
+        tb:ok(false, name)
         tb:diag("pattern isn't a string : " .. tostring(pattern))
     else
         local pass = not got:match(pattern)
-        tb:ok(pass, desc)
+        tb:ok(pass, name)
         if not pass then
             tb:diag("         got: " .. display(got)
                .. "\n      length: " .. got:len()
@@ -143,16 +143,16 @@ function unlike_string(got, pattern, desc)
     end
 end
 
-function contains_string(str, substring, desc)
+function contains_string(str, substring, name)
     if type(str) ~= 'string' then
-        tb:ok(false, desc)
+        tb:ok(false, name)
         tb:diag("String to look in isn't a string")
     elseif type(substring) ~= 'string' then
-        tb:ok(false, desc)
+        tb:ok(false, name)
         tb:diag("String to look for isn't a string")
     else
         local pass = str:find(substring, 1, true)
-        tb:ok(pass, desc)
+        tb:ok(pass, name)
         if not pass then
             tb:diag("    searched: " .. display(str)
                .. "\n  can't find: " .. display(substring))
@@ -160,17 +160,17 @@ function contains_string(str, substring, desc)
     end
 end
 
-function lacks_string(str, substring, desc)
+function lacks_string(str, substring, name)
     if type(str) ~= 'string' then
-        tb:ok(false, desc)
+        tb:ok(false, name)
         tb:diag("String to look in isn't a string")
     elseif type(substring) ~= 'string' then
-        tb:ok(false, desc)
+        tb:ok(false, name)
         tb:diag("String to look for isn't a string")
     else
         local idx = str:find(substring, 1, true)
         local pass = not idx
-        tb:ok(pass, desc)
+        tb:ok(pass, name)
         if not pass then
             tb:diag("    searched: " .. display(str)
                .. "\n   and found: " .. display(substring)
