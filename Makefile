@@ -62,6 +62,9 @@ export LUA_PATH=;;./src/?.lua
 test:
 	prove test/*.t
 
+html:
+	xmllint --noout --valid doc/*.html
+
 clean:
 	rm -f MANIFEST *.bak
 
