@@ -60,7 +60,7 @@ rockspec: $(TARBALL)
 
 export LUA_PATH=;;./src/?.lua
 test:
-	prove test/*.t
+	prove --exec=lua test/*.t
 
 html:
 	xmllint --noout --valid doc/*.html
