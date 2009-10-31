@@ -1,5 +1,8 @@
 Revision history for lua-TestLongString
 
+0.1.1  Sat Oct 31 18:30:00 2009
+	update the test suite with lua-TestMore 0.2.0
+
 0.1.0  Wed Oct 14 16:30:00 2009
 	First release
 
