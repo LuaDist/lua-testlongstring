@@ -12,7 +12,7 @@ test_test "a small string matches"
 
 
 test_out "not ok 1 - foo matches foo"
---test_fail(4)
+test_fail(4)
 test_diag [[         got: "bar"]]
 test_diag [[      length: 3]]
 test_diag [[    doesn't match 'foo']]
@@ -21,14 +21,14 @@ test_test "a small string doesn't match"
 
 
 test_out "not ok 1 - foo matches foo"
---test_fail(2)
+test_fail(2)
 test_diag "got value isn't a string : nil"
 like_string( nil, 'foo', "foo matches foo" )
 test_test "got nil"
 
 
 test_out "not ok 1 - long string matches a*"
---test_fail(5)
+test_fail(5)
 test_diag [[         got: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"...]]
 test_diag [[      length: 100]]
 test_diag [[    doesn't match '^a*$']]
@@ -38,7 +38,7 @@ test_test "a huge string doesn't match"
 
 
 test_out "not ok 1 - foo doesn't match bar"
---test_fail(4)
+test_fail(4)
 test_diag [[         got: "bar"]]
 test_diag [[      length: 3]]
 test_diag [[          matches 'bar']]

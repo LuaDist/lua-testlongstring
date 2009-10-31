@@ -16,7 +16,7 @@ Howth Castle and Environs.
 test_test "is_string_nows removes whitespace"
 
 test_out "not ok 1 - non-ws differs"
---test_fail(7)
+test_fail(7)
 test_diag [[after whitespace removal:]]
 test_diag [[         got: "abc"]]
 test_diag [[      length: 3]]
