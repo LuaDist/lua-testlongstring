@@ -1,5 +1,6 @@
 
-VERSION := $(shell cd src && lua -e "require [[Test.LongString]]; print(Test.LongString._VERSION)")
+LUA     := lua
+VERSION := $(shell cd src && $(LUA) -e "require [[Test.LongString]]; print(Test.LongString._VERSION)")
 TARBALL := lua-testlongstring-$(VERSION).tar.gz
 ifndef REV
   REV   := 1
@@ -60,7 +61,12 @@ rockspec: $(TARBALL)
 
 export LUA_PATH=;;./src/?.lua
 test:
-	prove --exec=lua test/*.t
+	prove --exec=$(LUA) test/*.t
+
+coverage:
+	rm -f luacov.stats.out luacov.report.out
+	prove --exec="$(LUA) -lluacov" test/*.t
+	luacov
 
 html:
 	xmllint --noout --valid doc/*.html
