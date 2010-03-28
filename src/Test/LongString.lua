@@ -183,7 +183,7 @@ for k, v in pairs(_G.Test.LongString) do  -- injection
     _G[k] = v
 end
 
-_VERSION = "0.1.1"
+_VERSION = "0.1.2"
 _DESCRIPTION = "lua-TestLongString : an extension for testing long string"
 _COPYRIGHT = "Copyright (c) 2009 Francois Perrad"
 --

@@ -3,4 +3,5 @@ MANIFEST
 *.tar
 *.tar.gz
 *.bak
+*.out
 
