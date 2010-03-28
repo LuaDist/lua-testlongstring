@@ -6,6 +6,19 @@ ifndef REV
   REV   := 1
 endif
 
+ifndef DESTDIR
+  DESTDIR := /usr/local
+endif
+BINDIR  := $(DESTDIR)/bin
+LIBDIR  := $(DESTDIR)/share/lua/5.1
+
+install:
+	mkdir -p $(LIBDIR)/Test
+	cp src/Test/LongString.lua      $(LIBDIR)/Test
+
+uninstall:
+	rm -f $(LIBDIR)/Test/LongString.lua
+
 manifest_pl := \
 use strict; \
 use warnings; \
@@ -59,14 +72,15 @@ dist: $(TARBALL)
 rockspec: $(TARBALL)
 	perl -e '$(rockspec_pl)' rockspec.in > rockspec/lua-testlongstring-$(VERSION)-$(REV).rockspec
 
-export LUA_PATH=;;./src/?.lua
+check: test
+
 test:
-	prove --exec=$(LUA) test/*.t
+	cd src && prove --exec=$(LUA) ../test/*.t
 
 coverage:
-	rm -f luacov.stats.out luacov.report.out
-	prove --exec="$(LUA) -lluacov" test/*.t
-	luacov
+	rm -f src/luacov.stats.out src/luacov.report.out
+	cd src && prove --exec="$(LUA) -lluacov" ../test/*.t
+	cd src && luacov
 
 html:
 	xmllint --noout --valid doc/*.html
