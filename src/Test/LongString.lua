@@ -1,5 +1,5 @@
 --
--- lua-TestLongString : <http://testlongstring.luaforge.net/>
+-- lua-TestLongString : <http://fperrad.github.com/lua-TestLongString/>
 --
 
 local _G = _G

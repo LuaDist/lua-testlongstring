@@ -15,7 +15,7 @@ description = {
         It provides functions for comparing and testing strings
         that are not in plain text or are especially long.
     ]],
-    homepage = 'http://testlongstring.luaforge.net/',
+    homepage = 'http://fperrad.github.com/lua-TestLongString/',
     maintainer = 'Francois Perrad',
     license = 'MIT/X11'
 }
