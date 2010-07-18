@@ -26,22 +26,10 @@ my @files = qw{MANIFEST}; \
 while (<>) { \
     chomp; \
     next if m{^\.}; \
-    next if m{^doc}; \
+    next if m{^doc/google}; \
     next if m{^rockspec/}; \
     push @files, $$_; \
 } \
-print join qq{\n}, sort @files;
-
-add_doc_pl := \
-use strict; \
-use warnings; \
-my @files; \
-while (<>) { \
-    chomp; \
-    next if m{^\.}; \
-    push @files, q{doc/} . $$_; \
-} \
-print qq{\n}; \
 print join qq{\n}, sort @files;
 
 rockspec_pl := \
@@ -71,15 +59,19 @@ CHANGES:
 tag:
 	git tag -a -m 'tag release $(VERSION)' $(VERSION)
 
-MANIFEST:
+doc:
+	git read-tree --prefix=doc/ -u remotes/origin/gh-pages
+
+MANIFEST: doc
 	git ls-files | perl -e '$(manifest_pl)' > MANIFEST
-	cd doc && git ls-files | perl -e '$(add_doc_pl)' >> ../MANIFEST
 
 $(TARBALL): MANIFEST
 	[ -d lua-TestLongString-$(VERSION) ] || ln -s . lua-TestLongString-$(VERSION)
 	perl -ne 'print qq{lua-TestLongString-$(VERSION)/$$_};' MANIFEST | \
 	    tar -zc -T - -f $(TARBALL)
 	rm lua-TestLongString-$(VERSION)
+	rm -rf doc
+	git rm doc/*
 
 dist: $(TARBALL)
 
@@ -96,11 +88,9 @@ coverage:
 	cd src && prove --exec="$(LUA) -lluacov" ../test/*.t
 	cd src && luacov
 
-html:
-	xmllint --noout --valid doc/*.html
-
 clean:
-	rm -f MANIFEST *.bak
+	rm -rf doc
+	rm -f MANIFEST *.bak src/luacov.*.out
 
 .PHONY: test rockspec CHANGES
 
