@@ -1,6 +1,6 @@
 
 LUA     := lua
-VERSION := $(shell cd src && $(LUA) -e "require [[Test.LongString]]; print(Test.LongString._VERSION)")
+VERSION := $(shell cd src && $(LUA) -e "m = require [[Test.LongString]]; print(m._VERSION)")
 TARBALL := lua-testlongstring-$(VERSION).tar.gz
 ifndef REV
   REV   := 1

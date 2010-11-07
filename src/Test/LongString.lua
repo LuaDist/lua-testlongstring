@@ -2,28 +2,29 @@
 -- lua-TestLongString : <http://fperrad.github.com/lua-TestLongString/>
 --
 
-local _G = _G
-local string = string
 local pairs = pairs
 local tostring = tostring
 local type = type
+local _G = _G
+local string = string
 
 local tb = require 'Test.Builder':new()
 
-module 'Test.LongString'
+_ENV = nil
+local m = {}
 
 -- Maximum string length displayed in diagnostics
-max = 50
+m.max = 50
 
 -- Amount of context provided when starting displaying a string in the middle
-context = 10
+m.context = 10
 
 local function display (str, offset)
     local fmt = '%q'
-    if str:len() > max then
+    if str:len() > m.max then
         offset = offset or 1
-        if context then
-            offset = offset - context
+        if m.context then
+            offset = offset - m.context
             if offset < 1 then
                 offset = 1
             end
@@ -35,7 +36,7 @@ local function display (str, offset)
         else
             fmt = '...%q...'
         end
-        str = str:sub(offset, offset + max - 1)
+        str = str:sub(offset, offset + m.max - 1)
     end
     local s = string.format( fmt, str )
     s = s:gsub( '.',
@@ -62,7 +63,7 @@ local function common_prefix_length (str1, str2)
     end
 end
 
-function is_string(got, expected, name)
+function m.is_string(got, expected, name)
     if type(got) ~= 'string' then
         tb:ok(false, name)
         tb:diag("got value isn't a string : " .. tostring(got))
@@ -83,7 +84,7 @@ function is_string(got, expected, name)
     end
 end
 
-function is_string_nows(got, expected, name)
+function m.is_string_nows(got, expected, name)
     if type(got) ~= 'string' then
         tb:ok(false, name)
         tb:diag("got value isn't a string : " .. tostring(got))
@@ -107,7 +108,7 @@ function is_string_nows(got, expected, name)
     end
 end
 
-function like_string(got, pattern, name)
+function m.like_string(got, pattern, name)
     if type(got) ~= 'string' then
         tb:ok(false, name)
         tb:diag("got value isn't a string : " .. tostring(got))
@@ -125,7 +126,7 @@ function like_string(got, pattern, name)
     end
 end
 
-function unlike_string(got, pattern, name)
+function m.unlike_string(got, pattern, name)
     if type(got) ~= 'string' then
         tb:ok(false, name)
         tb:diag("got value isn't a string : " .. tostring(got))
@@ -143,7 +144,7 @@ function unlike_string(got, pattern, name)
     end
 end
 
-function contains_string(str, substring, name)
+function m.contains_string(str, substring, name)
     if type(str) ~= 'string' then
         tb:ok(false, name)
         tb:diag("String to look in isn't a string")
@@ -160,7 +161,7 @@ function contains_string(str, substring, name)
     end
 end
 
-function lacks_string(str, substring, name)
+function m.lacks_string(str, substring, name)
     if type(str) ~= 'string' then
         tb:ok(false, name)
         tb:diag("String to look in isn't a string")
@@ -179,13 +180,18 @@ function lacks_string(str, substring, name)
     end
 end
 
-for k, v in pairs(_G.Test.LongString) do  -- injection
-    _G[k] = v
+for k, v in pairs(m) do  -- injection
+    if type(v) == 'function' then
+        _G[k] = v
+    end
 end
+_G.Test = _G.Test or {}
+_G.Test.LongString = m
 
-_VERSION = "0.1.2"
-_DESCRIPTION = "lua-TestLongString : an extension for testing long string"
-_COPYRIGHT = "Copyright (c) 2009 Francois Perrad"
+m._VERSION = "0.1.2"
+m._DESCRIPTION = "lua-TestLongString : an extension for testing long string"
+m._COPYRIGHT = "Copyright (c) 2009-2010 Francois Perrad"
+return m
 --
 -- This library is licensed under the terms of the MIT/X11 license,
 -- like Lua itself.
