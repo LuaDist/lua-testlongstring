@@ -14,9 +14,11 @@ test_test "a small string matches"
 
 -- Not in there
 test_out "not ok 1 - Any nachos?"
-test_fail(3)
+test_fail(5)
 test_diag [[    searched: "Dog food"]]
 test_diag [[  can't find: "Nachos"]]
+test_diag [[        LCSS: "o"]]
+test_diag [[LCSS context: "Dog food"]]
 contains_string( "Dog food", "Nachos", "Any nachos?" )
 test_test "Substring doesn't match"
 

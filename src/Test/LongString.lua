@@ -6,6 +6,7 @@ local pairs = pairs
 local tostring = tostring
 local type = type
 local _G = _G
+local math = math
 local string = string
 
 local tb = require 'Test.Builder':new()
@@ -18,6 +19,9 @@ m.max = 50
 
 -- Amount of context provided when starting displaying a string in the middle
 m.context = 10
+
+-- should we show LCSS context ?
+m.LCSS = true
 
 local function display (str, offset)
     local fmt = '%q'
@@ -144,6 +148,31 @@ function m.unlike_string(got, pattern, name)
     end
 end
 
+local function lcss (S, T)
+    local L = {}
+    local offset = 1
+    local length = 0
+    for i = 1, S:len() do
+        for j = 1, T:len() do
+            if S:sub(i, i) == T:sub(j, j) then
+                if i == 1 or j == 1 then
+                    L[i] = L[i] or {}
+                    L[i][j] = 1
+                else
+                    L[i-1] = L[i-1] or {}
+                    L[i] = L[i] or {}
+                    L[i][j] = (L[i-1][j-1] or 0) + 1
+                end
+                if L[i][j] > length then
+                    length = L[i][j]
+                    offset = i - length + 1
+                end
+            end
+        end
+    end
+    return offset, length
+end
+
 function m.contains_string(str, substring, name)
     if type(str) ~= 'string' then
         tb:ok(false, name)
@@ -157,6 +186,23 @@ function m.contains_string(str, substring, name)
         if not pass then
             tb:diag("    searched: " .. display(str)
                .. "\n  can't find: " .. display(substring))
+            if m.LCSS then
+                local off, len = lcss(str, substring)
+                local l = str:sub(off, off + len - 1)
+                tb:diag("        LCSS: " .. display(l))
+                if len < m.max then
+                    local available = math.ceil((m.max - len) / 2)
+                    local begin = off - 2 * available
+                    if begin < 1 then
+                        begin = off - available
+                        if begin < 1 then
+                            begin = 1
+                        end
+                    end
+                    local ctx = str:sub(begin, begin + m.max)
+                    tb:diag("LCSS context: " .. display(ctx))
+                end
+            end
         end
     end
 end
