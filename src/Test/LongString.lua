@@ -24,7 +24,7 @@ m.context = 10
 m.LCSS = true
 
 local function display (str, offset)
-    local fmt = '%q'
+    local fmt = '"%s"'
     if str:len() > m.max then
         offset = offset or 1
         if m.context then
@@ -36,14 +36,13 @@ local function display (str, offset)
             offset = 1
         end
         if offset == 1 then
-            fmt = '%q...'
+            fmt = '"%s"...'
         else
-            fmt = '...%q...'
+            fmt = '..."%s"...'
         end
         str = str:sub(offset, offset + m.max - 1)
     end
-    local s = string.format( fmt, str )
-    s = s:gsub( '.',
+    str = str:gsub( '.',
                 function (ch)
                     local val = ch:byte()
                     if val < 32 or val > 127 then
@@ -52,7 +51,7 @@ local function display (str, offset)
                         return ch
                     end
                 end )
-    return s
+    return string.format( fmt, str )
 end
 
 local function common_prefix_length (str1, str2)

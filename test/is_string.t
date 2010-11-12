@@ -39,7 +39,7 @@ test_out "not ok 1 - long binary strings"
 test_fail(6)
 test_diag [[         got: "This is a long string that will be truncated by th"...]]
 test_diag [[      length: 70]]
-test_diag [[    expected: "\000\001foo\\010bar"]]
+test_diag [[    expected: "\000\001foo\010bar"]]
 test_diag [[      length: 9]]
 test_diag [[    strings begin to differ at char 1]]
 is_string(
@@ -67,9 +67,9 @@ test_test "Escape high-ascii chars"
 
 test_out "not ok 1 - foo\\nfoo is foo\\nfoo"
 test_fail(6)
-test_diag [[         got: "foo\\010foo"]]
+test_diag [[         got: "foo\010foo"]]
 test_diag [[      length: 7]]
-test_diag [[    expected: "foo\\010fpo"]]
+test_diag [[    expected: "foo\010fpo"]]
 test_diag [[      length: 7]]
 test_diag [[    strings begin to differ at char 6]]
 is_string( "foo\nfoo", "foo\nfpo", "foo\\nfoo is foo\\nfoo" )
@@ -78,9 +78,9 @@ test_test "Count correctly prefix with multiline strings"
 
 test_out "not ok 1 - this isn't Ulysses"
 test_fail(6)
-test_diag [[         got: ..."he bowl aloft and intoned:\\010--Introibo ad altare de"...]]
+test_diag [[         got: ..."he bowl aloft and intoned:\010--Introibo ad altare de"...]]
 test_diag [[      length: 275]]
-test_diag [[    expected: ..."he bowl alift and intoned:\\010--Introibo ad altare de"...]]
+test_diag [[    expected: ..."he bowl alift and intoned:\010--Introibo ad altare de"...]]
 test_diag [[      length: 275]]
 test_diag [[    strings begin to differ at char 233]]
 is_string( [[
