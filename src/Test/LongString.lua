@@ -153,7 +153,7 @@ local function lcss (S, T)
     local length = 0
     for i = 1, S:len() do
         for j = 1, T:len() do
-            if S:sub(i, i) == T:sub(j, j) then
+            if S:byte(i) == T:byte(j) then
                 if i == 1 or j == 1 then
                     L[i] = L[i] or {}
                     L[i][j] = 1
