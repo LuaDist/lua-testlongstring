@@ -233,7 +233,7 @@ end
 _G.Test = _G.Test or {}
 _G.Test.LongString = m
 
-m._VERSION = "0.1.2"
+m._VERSION = "0.1.3"
 m._DESCRIPTION = "lua-TestLongString : an extension for testing long string"
 m._COPYRIGHT = "Copyright (c) 2009-2010 Francois Perrad"
 return m

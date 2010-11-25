@@ -1,7 +1,8 @@
 
-MANIFEST
-*.tar
-*.tar.gz
-*.bak
+/MANIFEST
+/README.html
+/*.tar
+/*.bak
+/*.tar.gz
+
 *.out
-README.html
