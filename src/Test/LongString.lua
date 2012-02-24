@@ -230,8 +230,6 @@ for k, v in pairs(m) do  -- injection
         _G[k] = v
     end
 end
-_G.Test = _G.Test or {}
-_G.Test.LongString = m
 
 m._VERSION = "0.1.3"
 m._DESCRIPTION = "lua-TestLongString : an extension for testing long string"
