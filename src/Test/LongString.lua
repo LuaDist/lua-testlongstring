@@ -100,7 +100,7 @@ function m.is_string(got, expected, name)
                .. "\n      length: " .. got:len()
                .. "\n    expected: " .. display(expected, common_prefix)
                .. "\n      length: " .. expected:len()
-               .. "\n    strings begin to differ at char " .. tostring(common_prefix) .. " (line "
+               .. "\n    strings begin to differ at char " .. common_prefix .. " (line "
                                                            .. line .. " column "
                                                            .. column .. ")")
         end
@@ -126,7 +126,7 @@ function m.is_string_nows(got, expected, name)
                .. "\n      length: " .. got_nows:len()
                .. "\n    expected: " .. display(expected_nows, common_prefix)
                .. "\n      length: " .. expected_nows:len()
-               .. "\n    strings begin to differ at char " .. tostring(common_prefix))
+               .. "\n    strings begin to differ at char " .. common_prefix)
         end
     end
 end
@@ -241,7 +241,7 @@ function m.lacks_string(str, substring, name)
             local line, column = line_column(str, idx)
             tb:diag("    searched: " .. display(str)
                .. "\n   and found: " .. display(substring)
-               .. "\n at position: " .. tostring(idx) .. " (line "
+               .. "\n at position: " .. idx .. " (line "
                                      .. line .. " column "
                                      .. column .. ")")
         end
