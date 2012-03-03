@@ -254,7 +254,7 @@ for k, v in pairs(m) do  -- injection
     end
 end
 
-m._VERSION = "0.1.3"
+m._VERSION = "0.2.0"
 m._DESCRIPTION = "lua-TestLongString : an extension for testing long string"
 m._COPYRIGHT = "Copyright (c) 2009-2012 Francois Perrad"
 return m
