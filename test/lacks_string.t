@@ -17,7 +17,7 @@ test_out "not ok 1 - Any peanut butter in my chocolate?"
 test_fail(4)
 test_diag [[    searched: "Reese's Peanut Butter Cups"]]
 test_diag [[   and found: "Peanut Butter"]]
-test_diag [[ at position: 9]]
+test_diag [[ at position: 9 (line 1 column 9)]]
 lacks_string( "Reese's Peanut Butter Cups", "Peanut Butter", "Any peanut butter in my chocolate?" )
 test_test "Not lacking"
 

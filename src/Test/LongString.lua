@@ -23,6 +23,9 @@ m.context = 10
 -- should we show LCSS context ?
 m.LCSS = true
 
+-- what a end of line is
+m.EOL = "\n"
+
 local function display (str, offset)
     local fmt = '"%s"'
     if str:len() > m.max then
@@ -66,6 +69,20 @@ local function common_prefix_length (str1, str2)
     end
 end
 
+local function line_column (str, max)
+    local init = 1
+    local line = 1
+    while true do
+        local pos, posn = str:find(m.EOL, init)
+        if not pos or pos >= max then
+            break
+        end
+        init = posn + 1
+        line = line + 1
+    end
+    return line, max - init + 1
+end
+
 function m.is_string(got, expected, name)
     if type(got) ~= 'string' then
         tb:ok(false, name)
@@ -78,11 +95,14 @@ function m.is_string(got, expected, name)
         tb:ok(pass, name)
         if not pass then
             local common_prefix = common_prefix_length(got, expected)
+            local line, column = line_column(got, common_prefix)
             tb:diag("         got: " .. display(got, common_prefix)
                .. "\n      length: " .. got:len()
                .. "\n    expected: " .. display(expected, common_prefix)
                .. "\n      length: " .. expected:len()
-               .. "\n    strings begin to differ at char " .. tostring(common_prefix))
+               .. "\n    strings begin to differ at char " .. tostring(common_prefix) .. " (line "
+                                                           .. line .. " column "
+                                                           .. column .. ")")
         end
     end
 end
@@ -218,9 +238,12 @@ function m.lacks_string(str, substring, name)
         local pass = not idx
         tb:ok(pass, name)
         if not pass then
+            local line, column = line_column(str, idx)
             tb:diag("    searched: " .. display(str)
                .. "\n   and found: " .. display(substring)
-               .. "\n at position: " .. tostring(idx))
+               .. "\n at position: " .. tostring(idx) .. " (line "
+                                     .. line .. " column "
+                                     .. column .. ")")
         end
     end
 end
@@ -233,7 +256,7 @@ end
 
 m._VERSION = "0.1.3"
 m._DESCRIPTION = "lua-TestLongString : an extension for testing long string"
-m._COPYRIGHT = "Copyright (c) 2009-2010 Francois Perrad"
+m._COPYRIGHT = "Copyright (c) 2009-2012 Francois Perrad"
 return m
 --
 -- This library is licensed under the terms of the MIT/X11 license,

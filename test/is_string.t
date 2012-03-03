@@ -16,7 +16,7 @@ test_diag [[         got: "bar"]]
 test_diag [[      length: 3]]
 test_diag [[    expected: "foo"]]
 test_diag [[      length: 3]]
-test_diag [[    strings begin to differ at char 1]]
+test_diag [[    strings begin to differ at char 1 (line 1 column 1)]]
 is_string( "bar", "foo", "foo is foo" )
 test_test "two small strings different"
 
@@ -41,7 +41,7 @@ test_diag [[         got: "This is a long string that will be truncated by th"..
 test_diag [[      length: 70]]
 test_diag [[    expected: "\000\001foo\010bar"]]
 test_diag [[      length: 9]]
-test_diag [[    strings begin to differ at char 1]]
+test_diag [[    strings begin to differ at char 1 (line 1 column 1)]]
 is_string(
     "This is a long string that will be truncated by the display() function",
     "\0\001foo\nbar",
@@ -56,7 +56,7 @@ test_diag [[         got: "Element"]]
 test_diag [[      length: 7]]
 test_diag [[    expected: "El\233ment"]]
 test_diag [[      length: 7]]
-test_diag [[    strings begin to differ at char 3]]
+test_diag [[    strings begin to differ at char 3 (line 1 column 3)]]
 is_string(
     "Element",
     "Elément",
@@ -71,7 +71,7 @@ test_diag [[         got: "foo\010foo"]]
 test_diag [[      length: 7]]
 test_diag [[    expected: "foo\010fpo"]]
 test_diag [[      length: 7]]
-test_diag [[    strings begin to differ at char 6]]
+test_diag [[    strings begin to differ at char 6 (line 2 column 2)]]
 is_string( "foo\nfoo", "foo\nfpo", "foo\\nfoo is foo\\nfoo" )
 test_test "Count correctly prefix with multiline strings"
 
@@ -82,7 +82,7 @@ test_diag [[         got: ..."he bowl aloft and intoned:\010--Introibo ad altare
 test_diag [[      length: 275]]
 test_diag [[    expected: ..."he bowl alift and intoned:\010--Introibo ad altare de"...]]
 test_diag [[      length: 275]]
-test_diag [[    strings begin to differ at char 233]]
+test_diag [[    strings begin to differ at char 233 (line 4 column 17)]]
 is_string( [[
 Stately, plump Buck Mulligan came from the stairhead, bearing a bowl of
 lather on which a mirror and a razor lay crossed. A yellow dressinggown,

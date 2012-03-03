@@ -3,6 +3,7 @@ Revision history for lua-TestLongString
 0.2.0
 	work with Lua 5.2.0
 	add LuaDist support
+	show line and column number in diagnostics
 	INCOMPATIBILITY : now, the use of the following idiom is mandatory
 		local testlongstring = require 'Test.More'
 
