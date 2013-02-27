@@ -1,0 +1,37 @@
+type = "x86_64"
+arch = "Ubuntu"
+author = "Francois Perrad"
+depends = {
+[[lua ~> 5.1]],
+[[lua-testmore >= 0.3.0]],
+}
+
+desc = "an extension for testing long string"
+version = "0.2.0"
+maintainer = "Francois Perrad"
+files = {
+Runtime = {
+[[lib/lua/Test/LongString.lua]],
+}
+,
+Data = {
+[[share/lua-testlongstring/CHANGES]],
+[[share/lua-testlongstring/COPYRIGHT]],
+[[share/lua-testlongstring/README.md]],
+}
+,
+Test = {
+[[share/lua-testlongstring/test//like_string.t]],
+[[share/lua-testlongstring/test//is_string_nows.t]],
+[[share/lua-testlongstring/test//00require.t]],
+[[share/lua-testlongstring/test//99example.t]],
+[[share/lua-testlongstring/test//is_string.t]],
+[[share/lua-testlongstring/test//lacks_string.t]],
+[[share/lua-testlongstring/test//contains_string.t]],
+}
+,
+}
+
+license = "MIT/X11"
+name = "lua-testlongstring"
+url = "http://fperrad.github.com/lua-TestLongString/"
